@@ -1,0 +1,9 @@
+*.o
+*.dump
+*-native
+*-x86
+*-riscv
+*-riscv64
+*-mips
+*-arm
+*-aarch64
