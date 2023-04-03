@@ -1,0 +1,1 @@
+gcc -mssse3 -g -O1 -Wall -Werror -std=c99 -o reader reader.c -lm
