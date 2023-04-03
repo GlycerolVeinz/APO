@@ -1,2 +1,3 @@
 #ignore remote directory
 /remote_classroom
+*.ppm
