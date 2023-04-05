@@ -1,21 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define RGB_PER_PXL 3
 
 int main(int argc, char const *argv[])
 {
-    FILE *o_file = fopen(argv[1],"r+b");
-	if(!o_file) exit(-1);
-
-	unsigned char width_line[15];	    
-	int counter = -1;
-	while (width_line[counter++] != '\n'){
-		width_line[counter] = fgetc(o_file);
-		if(width_line[counter] == EOF) exit(100);
-        printf("%c", width_line[counter]);
-	}
-    width_line[counter] = fgetc(o_file);
-    printf("%c", width_line[counter]);
-    printf("\n");
-
+	int width = 3;
+	#define COORD(y,x,z) (RGB_PER_PXL * (y * width + x) + z)
+						
+	printf("%d\n", COORD(1,2,2));
     return 0;
 }
