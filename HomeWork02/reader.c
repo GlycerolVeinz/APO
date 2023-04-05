@@ -30,7 +30,7 @@ void err_ext(int err_code);
 int size_reader(FILE *input_file, FILE *output_file);
 void check_hue(FILE *input_file, FILE *output_file);
 void check_file_type(FILE *input_file, FILE *output_file);
-void *checked_malloc(size_t size);
+void *checked_calloc(size_t num, size_t size);
 void increment_histogram(int histogram[5], double histogram_val);
 
 // MAIN--------------------------------------------------------------
@@ -57,20 +57,25 @@ int main(int argc, char const *argv[])
 	check_hue(input_file, output_file);
 
 	// allocate mem for pictures
-	unsigned char *in_img = checked_malloc(sizeof(unsigned char) * width * height * RGB_PER_PXL);
-	unsigned char *out_img = checked_malloc(sizeof(unsigned char) * width * height * RGB_PER_PXL);
+	unsigned char *in_img = checked_calloc(width * height * RGB_PER_PXL, sizeof(unsigned char));
+	unsigned char *out_img = checked_calloc(width * height * RGB_PER_PXL, sizeof(unsigned char));
 	int histogram[5] = {0};
 
 // load img
-#define COORD(y, x, z) (RGB_PER_PXL * (y * width + x) + z)
+#define COORD(x, y, z) (RGB_PER_PXL * ((y)*width + (x)) + (z))
 
-	for (size_t collum = 0; collum < height; ++collum)
+#define LEFT_TO(x, y, z) (RGB_PER_PXL * ((y)*width + ((x)-1)) + (z))
+#define ABOVE(x, y, z) (RGB_PER_PXL * (((y)-1) * width + (x)) + (z))
+#define BELLOW(x, y, z) (RGB_PER_PXL * (((y) + 1) * width + (x)) + (z))
+#define RIGHT_TO(x, y, z) (RGB_PER_PXL * ((y)*width + ((x) + 1)) + (z))
+
+	for (int row = 0; row < height; ++row)
 	{
-		for (size_t row = 0; row < width; ++row)
+		for (int collum = 0; collum < width; ++collum)
 		{
 			double histogram_val = 0;
 
-			for (size_t rgb = 0; rgb < RGB_PER_PXL; ++rgb)
+			for (int rgb = 0; rgb < RGB_PER_PXL; ++rgb)
 			{
 				in_img[COORD(collum, row, rgb)] = fgetc(input_file);
 
@@ -90,20 +95,48 @@ int main(int argc, char const *argv[])
 				}
 				histogram_val += histogram_mul * in_img[COORD(collum, row, rgb)];
 
-				// compute convolution
-			}
+				// compute convolution (need to have at least 3 rows)
+				if ((collum == 0) || (row == 0) || (collum == (width - 1)) || (row == (height - 1)))
+				{
+					out_img[COORD(collum, row, rgb)] = in_img[COORD(collum, row, rgb)];
+				}
 
+				if ((row >= 2) && ((collum != 0) || (collum != (width - 1)))) // start at the 3rd line
+				{
+					out_img[COORD(collum, row - 1, rgb)] =
+						(5 * (in_img[COORD(collum, row - 1, rgb)]) -
+						 in_img[LEFT_TO(collum, row - 1, rgb)] -
+						 in_img[RIGHT_TO(collum, row - 1, rgb)] -
+						 in_img[ABOVE(collum, row - 1, rgb)] -
+						 in_img[BELLOW(collum, row - 1, rgb)]) %
+						255;
+				}
+			}
 			increment_histogram(histogram, histogram_val);
 		}
 	}
+	fclose(input_file);
 
 	// safe histogram to out.txt
 	fprintf(histogram_file, "%d %d %d %d %d", histogram[0], histogram[1], histogram[2], histogram[3], histogram[4]);
+	fclose(histogram_file);
+
+	// safe img to out.ppm
+	for (int row = 0; row < height; ++row)
+	{
+		for (int collum = 0; collum < width; ++collum)
+		{
+			for (int rgb = 0; rgb < RGB_PER_PXL; ++rgb)
+			{
+				fputc(out_img[COORD(collum, row, rgb)], output_file);
+			}
+		}
+	}
+	fclose(output_file);
 
 	free(in_img);
 	free(out_img);
-	fclose(input_file);
-	return EXIT_SUCCESS;
+	exit(EXIT_SUCCESS);
 }
 // EO_MAIN--------------------------------------------------------------
 
@@ -139,7 +172,7 @@ void err_ext(int err_code)
 // FUNCTION -----------------------------------------------------------
 void check_file_type(FILE *input_file, FILE *output_file)
 {
-	char c = 0;
+	unsigned char c = 0;
 	for (size_t i = 0; i < 3; ++i)
 	{
 		c = fgetc(input_file);
@@ -158,14 +191,14 @@ int size_reader(FILE *input_file, FILE *output_file)
 {
 	unsigned char size_line[BIGGEST_PICTURE_RES] = {0};
 	int size = 0;
-	int counter = -1;
-	while (size_line[counter++] != '\n')
+	int counter = 0;
+	do
 	{
 		size_line[counter] = fgetc(input_file);
 		if (size_line[counter] == EOF)
 			err_ext(ERR_PARAM);
 		fputc(size_line[counter], output_file);
-	}
+	} while (size_line[counter++] != '\n');
 
 	int tenth_pwr = 1;
 	counter -= 2;
@@ -196,9 +229,9 @@ void check_hue(FILE *input_file, FILE *output_file)
 }
 
 // FUNCTION -----------------------------------------------------------
-void *checked_malloc(size_t size)
+void *checked_calloc(size_t num, size_t size)
 {
-	void *ret = malloc(size);
+	void *ret = calloc(num, size);
 	if (!ret)
 		err_ext(ERR_MALOC);
 	return ret;
