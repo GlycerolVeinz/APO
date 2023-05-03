@@ -1,0 +1,94 @@
+
+program code
+
+
+build/program-x86:     file format elf32-i386
+
+
+Disassembly of section my_text:
+
+080abfc1 <subroutine_fnc>:
+ 80abfc1:	55                   	push   %ebp
+ 80abfc2:	89 e5                	mov    %esp,%ebp
+ 80abfc4:	53                   	push   %ebx
+ 80abfc5:	83 ec 10             	sub    $0x10,%esp
+ 80abfc8:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+ 80abfcf:	eb 25                	jmp    80abff6 <subroutine_fnc+0x35>
+ 80abfd1:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 80abfd4:	8d 4d f3             	lea    -0xd(%ebp),%ecx
+ 80abfd7:	ba 01 00 00 00       	mov    $0x1,%edx
+ 80abfdc:	89 c3                	mov    %eax,%ebx
+ 80abfde:	b8 04 00 00 00       	mov    $0x4,%eax
+ 80abfe3:	cd 80                	int    $0x80
+ 80abfe5:	89 c3                	mov    %eax,%ebx
+ 80abfe7:	89 d8                	mov    %ebx,%eax
+ 80abfe9:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 80abfec:	83 7d f8 00          	cmpl   $0x0,-0x8(%ebp)
+ 80abff0:	78 27                	js     80ac019 <subroutine_fnc+0x58>
+ 80abff2:	83 45 f4 01          	addl   $0x1,-0xc(%ebp)
+ 80abff6:	8b 45 08             	mov    0x8(%ebp),%eax
+ 80abff9:	8d 4d f3             	lea    -0xd(%ebp),%ecx
+ 80abffc:	ba 01 00 00 00       	mov    $0x1,%edx
+ 80ac001:	89 c3                	mov    %eax,%ebx
+ 80ac003:	b8 03 00 00 00       	mov    $0x3,%eax
+ 80ac008:	cd 80                	int    $0x80
+ 80ac00a:	89 c3                	mov    %eax,%ebx
+ 80ac00c:	89 d8                	mov    %ebx,%eax
+ 80ac00e:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 80ac011:	83 7d f8 01          	cmpl   $0x1,-0x8(%ebp)
+ 80ac015:	74 ba                	je     80abfd1 <subroutine_fnc+0x10>
+ 80ac017:	eb 01                	jmp    80ac01a <subroutine_fnc+0x59>
+ 80ac019:	90                   	nop
+ 80ac01a:	83 7d f8 00          	cmpl   $0x0,-0x8(%ebp)
+ 80ac01e:	79 07                	jns    80ac027 <subroutine_fnc+0x66>
+ 80ac020:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+ 80ac025:	eb 03                	jmp    80ac02a <subroutine_fnc+0x69>
+ 80ac027:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 80ac02a:	83 c4 10             	add    $0x10,%esp
+ 80ac02d:	5b                   	pop    %ebx
+ 80ac02e:	5d                   	pop    %ebp
+ 80ac02f:	c3                   	ret    
+
+080ac030 <toplevel_fnc>:
+ 80ac030:	55                   	push   %ebp
+ 80ac031:	89 e5                	mov    %esp,%ebp
+ 80ac033:	56                   	push   %esi
+ 80ac034:	53                   	push   %ebx
+ 80ac035:	83 ec 10             	sub    $0x10,%esp
+ 80ac038:	b8 9c ff ff ff       	mov    $0xffffff9c,%eax
+ 80ac03d:	b9 00 c0 0d 08       	mov    $0x80dc000,%ecx
+ 80ac042:	ba 00 00 00 00       	mov    $0x0,%edx
+ 80ac047:	be 80 01 00 00       	mov    $0x180,%esi
+ 80ac04c:	89 c3                	mov    %eax,%ebx
+ 80ac04e:	b8 27 01 00 00       	mov    $0x127,%eax
+ 80ac053:	cd 80                	int    $0x80
+ 80ac055:	89 c3                	mov    %eax,%ebx
+ 80ac057:	89 d8                	mov    %ebx,%eax
+ 80ac059:	89 45 f4             	mov    %eax,-0xc(%ebp)
+ 80ac05c:	83 7d f4 00          	cmpl   $0x0,-0xc(%ebp)
+ 80ac060:	79 07                	jns    80ac069 <toplevel_fnc+0x39>
+ 80ac062:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+ 80ac067:	eb 1f                	jmp    80ac088 <toplevel_fnc+0x58>
+ 80ac069:	6a 01                	push   $0x1
+ 80ac06b:	ff 75 f4             	pushl  -0xc(%ebp)
+ 80ac06e:	e8 4e ff ff ff       	call   80abfc1 <subroutine_fnc>
+ 80ac073:	83 c4 08             	add    $0x8,%esp
+ 80ac076:	89 45 f0             	mov    %eax,-0x10(%ebp)
+ 80ac079:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 80ac07c:	89 c3                	mov    %eax,%ebx
+ 80ac07e:	b8 06 00 00 00       	mov    $0x6,%eax
+ 80ac083:	cd 80                	int    $0x80
+ 80ac085:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 80ac088:	8d 65 f8             	lea    -0x8(%ebp),%esp
+ 80ac08b:	5b                   	pop    %ebx
+ 80ac08c:	5e                   	pop    %esi
+ 80ac08d:	5d                   	pop    %ebp
+ 80ac08e:	c3                   	ret    
+
+program data
+
+
+build/program-x86:     file format elf32-i386
+
+Contents of section my_data:
+ 80dc000 64617461 00                          data.           

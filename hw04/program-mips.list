@@ -1,0 +1,137 @@
+
+program code
+
+
+build/program-mips:     file format elf32-tradbigmips
+
+
+Disassembly of section my_text:
+
+00404f80 <subroutine_fnc>:
+  404f80:	27bdffd8 	addiu	sp,sp,-40
+  404f84:	afbe0024 	sw	s8,36(sp)
+  404f88:	03a0f025 	move	s8,sp
+  404f8c:	afc40028 	sw	a0,40(s8)
+  404f90:	afc5002c 	sw	a1,44(s8)
+  404f94:	afc0000c 	sw	zero,12(s8)
+  404f98:	1000001a 	b	405004 <subroutine_fnc+0x84>
+  404f9c:	00000000 	nop
+  404fa0:	8fc4002c 	lw	a0,44(s8)
+  404fa4:	27c2001c 	addiu	v0,s8,28
+  404fa8:	00402825 	move	a1,v0
+  404fac:	24060001 	li	a2,1
+  404fb0:	24020fa4 	li	v0,4004
+  404fb4:	0000000c 	syscall
+  404fb8:	afc70010 	sw	a3,16(s8)
+  404fbc:	afc20018 	sw	v0,24(s8)
+  404fc0:	8fc20010 	lw	v0,16(s8)
+  404fc4:	00000000 	nop
+  404fc8:	14400004 	bnez	v0,404fdc <subroutine_fnc+0x5c>
+  404fcc:	00000000 	nop
+  404fd0:	8fc20018 	lw	v0,24(s8)
+  404fd4:	10000002 	b	404fe0 <subroutine_fnc+0x60>
+  404fd8:	00000000 	nop
+  404fdc:	2402ffff 	li	v0,-1
+  404fe0:	afc20008 	sw	v0,8(s8)
+  404fe4:	8fc20008 	lw	v0,8(s8)
+  404fe8:	00000000 	nop
+  404fec:	0440001c 	bltz	v0,405060 <subroutine_fnc+0xe0>
+  404ff0:	00000000 	nop
+  404ff4:	8fc2000c 	lw	v0,12(s8)
+  404ff8:	00000000 	nop
+  404ffc:	24420001 	addiu	v0,v0,1
+  405000:	afc2000c 	sw	v0,12(s8)
+  405004:	8fc40028 	lw	a0,40(s8)
+  405008:	27c2001c 	addiu	v0,s8,28
+  40500c:	00402825 	move	a1,v0
+  405010:	24060001 	li	a2,1
+  405014:	24020fa3 	li	v0,4003
+  405018:	0000000c 	syscall
+  40501c:	afc70010 	sw	a3,16(s8)
+  405020:	afc20014 	sw	v0,20(s8)
+  405024:	8fc20010 	lw	v0,16(s8)
+  405028:	00000000 	nop
+  40502c:	14400004 	bnez	v0,405040 <subroutine_fnc+0xc0>
+  405030:	00000000 	nop
+  405034:	8fc20014 	lw	v0,20(s8)
+  405038:	10000002 	b	405044 <subroutine_fnc+0xc4>
+  40503c:	00000000 	nop
+  405040:	2402ffff 	li	v0,-1
+  405044:	afc20008 	sw	v0,8(s8)
+  405048:	8fc30008 	lw	v1,8(s8)
+  40504c:	24020001 	li	v0,1
+  405050:	1062ffd3 	beq	v1,v0,404fa0 <subroutine_fnc+0x20>
+  405054:	00000000 	nop
+  405058:	10000002 	b	405064 <subroutine_fnc+0xe4>
+  40505c:	00000000 	nop
+  405060:	00000000 	nop
+  405064:	8fc20008 	lw	v0,8(s8)
+  405068:	00000000 	nop
+  40506c:	04410004 	bgez	v0,405080 <subroutine_fnc+0x100>
+  405070:	00000000 	nop
+  405074:	2402ffff 	li	v0,-1
+  405078:	10000002 	b	405084 <subroutine_fnc+0x104>
+  40507c:	00000000 	nop
+  405080:	8fc2000c 	lw	v0,12(s8)
+  405084:	03c0e825 	move	sp,s8
+  405088:	8fbe0024 	lw	s8,36(sp)
+  40508c:	27bd0028 	addiu	sp,sp,40
+  405090:	03e00008 	jr	ra
+  405094:	00000000 	nop
+
+00405098 <toplevel_fnc>:
+  405098:	27bdffc8 	addiu	sp,sp,-56
+  40509c:	afbf0034 	sw	ra,52(sp)
+  4050a0:	afbe0030 	sw	s8,48(sp)
+  4050a4:	03a0f025 	move	s8,sp
+  4050a8:	2404ff9c 	li	a0,-100
+  4050ac:	3c020041 	lui	v0,0x41
+  4050b0:	24426150 	addiu	v0,v0,24912
+  4050b4:	00402825 	move	a1,v0
+  4050b8:	00003025 	move	a2,zero
+  4050bc:	24070180 	li	a3,384
+  4050c0:	240210c0 	li	v0,4288
+  4050c4:	0000000c 	syscall
+  4050c8:	afc70018 	sw	a3,24(s8)
+  4050cc:	afc2001c 	sw	v0,28(s8)
+  4050d0:	8fc20018 	lw	v0,24(s8)
+  4050d4:	00000000 	nop
+  4050d8:	14400004 	bnez	v0,4050ec <toplevel_fnc+0x54>
+  4050dc:	00000000 	nop
+  4050e0:	8fc2001c 	lw	v0,28(s8)
+  4050e4:	10000002 	b	4050f0 <toplevel_fnc+0x58>
+  4050e8:	00000000 	nop
+  4050ec:	2402ffff 	li	v0,-1
+  4050f0:	afc20020 	sw	v0,32(s8)
+  4050f4:	8fc20020 	lw	v0,32(s8)
+  4050f8:	00000000 	nop
+  4050fc:	04410004 	bgez	v0,405110 <toplevel_fnc+0x78>
+  405100:	00000000 	nop
+  405104:	2402ffff 	li	v0,-1
+  405108:	1000000c 	b	40513c <toplevel_fnc+0xa4>
+  40510c:	00000000 	nop
+  405110:	24050001 	li	a1,1
+  405114:	8fc40020 	lw	a0,32(s8)
+  405118:	0c1013e0 	jal	404f80 <subroutine_fnc>
+  40511c:	00000000 	nop
+  405120:	afc20024 	sw	v0,36(s8)
+  405124:	8fc40020 	lw	a0,32(s8)
+  405128:	24020fa6 	li	v0,4006
+  40512c:	0000000c 	syscall
+  405130:	afc70018 	sw	a3,24(s8)
+  405134:	afc20028 	sw	v0,40(s8)
+  405138:	8fc20024 	lw	v0,36(s8)
+  40513c:	03c0e825 	move	sp,s8
+  405140:	8fbf0034 	lw	ra,52(sp)
+  405144:	8fbe0030 	lw	s8,48(sp)
+  405148:	27bd0038 	addiu	sp,sp,56
+  40514c:	03e00008 	jr	ra
+  405150:	00000000 	nop
+
+program data
+
+
+build/program-mips:     file format elf32-tradbigmips
+
+Contents of section my_data:
+ 416150 64617461 00000000                    data....        
