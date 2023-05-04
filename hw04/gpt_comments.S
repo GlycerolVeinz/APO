@@ -1,6 +1,6 @@
 00010200 <subroutine_fnc>:
    10200:   addi sp, sp, -80    // Allocate 80 bytes of space on the stack for local variables
-   10204:   sw s0, 76(sp)       // Save the value of the previous stack pointer in the saved register s0
+   10204:   sw s0, 76(sp)  //(-4)???     // Save the value of the previous stack pointer in the saved register s0
    10208:   addi s0, sp, 80     // Set s0 to point to the current stack frame
    1020c:   sw a0, -68(s0)      // Store the value of the first function argument at -68 bytes offset from s0
    10210:   sw a1, -72(s0)      // Store the value of the second function argument at -72 bytes offset from s0
@@ -15,7 +15,7 @@
    10230:   sw a5, -36(s0)      // Store the value of a5 at -36 bytes offset from s0
    10234:   li a5, 1            // Load the immediate value 1 into register a5
    10238:   sw a5, -40(s0)      // Store the value of a5 at -40 bytes offset from s0
-   1023c:   lw a7, -28(s0)      // Load the value at -28 bytes offset from s0 into a7
+   1023c:   lw a7, -28(s0) //(-32)???     // Load the value at -28 bytes offset from s0 into a7
    10240:   lw a0, -32(s0)      // Load the value at -32 bytes offset from s0 into a0
    10244:   lw a1, -36(s0)      // Load the value at -36 bytes offset from s0 into a1
    10248:   lw a2, -40(s0)      // Load the value at -40 bytes offset from s0 into a2
@@ -28,7 +28,7 @@
    10264:   addi	a5,a5,1     // Increment the value in register a5 by 1.
    10268:   sw	a5,-24(s0)      // Store the value in a5 at the memory location s0-24.
 
-   1026c:   addi	a5,s0,-5    // Store the value s0-57 in a5.
+   1026c:   addi	a5,s0,-57    // Store the value s0-57 in a5.
    10270:   li	a4,63           // Load the immediate value 63 into register a4.
    10274:   sw	a4,-44(s0)      // Store the value in a4 at the memory location s0-44.
    10278:   lw	a4,-68(s0)      // Load the value at the memory location s0-68 into register a4.
@@ -50,8 +50,7 @@
    
    102b8:   nop         
    102bc:   lw	a5,-20(s0)      // Load the value at the memory location s0-20 into register a5.
-   102c0:   bgez	a5,102cc:    // If the value in register a5 is greater than or equal to zero, jump to the memory location 102cc.
-   
+   102c0:   bgez	a5,102cc:    // If the value in register a5 is greater than or equal to zero, jump to the memory location 102cc. 
    102c4:   li	a5,-1           // Load the immediate value -1 into register a5.
    102c8:   j	102d0:           // Jump to the memory location 102d0.
    
@@ -60,3 +59,7 @@
    102d4:   lw	s0,76(sp)       // Load the value at the memory location sp+76 into register s0.
    102d8:   addi sp,sp,80       // Increment the value in register sp by 80.
    102dc:   ret
+
+my_data:
+   1138c: 64617461 00                          
+   data.
